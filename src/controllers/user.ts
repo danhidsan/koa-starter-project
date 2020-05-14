@@ -1,4 +1,5 @@
 import * as koa from 'koa'
+import * as bcrypt from 'bcrypt'
 
 import User, {IUser} from '../models/user'
 
@@ -34,13 +35,21 @@ export const getUserById = async (ctx: koa.Context, next: () => Promise<void>) =
 
 export const createUser = async (ctx: koa.Context, next: () => Promise<void>) => {
 
-  const { username, email, firstName } = ctx.request.body
+  const { username, email, firstName, password } = ctx.request.body
 
   var newUser: IUser = new User({
     username: username,
     email: email,
     firstName: firstName
   })
+
+  await bcrypt.hash(password, 10)
+    .then((hash: string) => {
+      newUser.password = hash
+    }).catch((error) => {
+      return next()
+    })
+    
 
   await newUser.save().then((savedUser: IUser)=>{
     ctx.body = {user: savedUser}
