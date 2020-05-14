@@ -12,7 +12,7 @@ export const login = async (ctx: koa.Context) => {
   await userQuery.then(async (user: IUser) => {
     const isMatch: boolean = await bcrypt.compare(password, user.password)
     if (isMatch){
-      const token: string = sign({_id: user.id}, "$3(R3TP@$$")
+      const token: string = sign({_id: user.id}, process.env.JWT_SECRET)
       return ctx.body({token: token})
     }
     ctx.status = 404

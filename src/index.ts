@@ -1,9 +1,9 @@
+import * as dotenv from 'dotenv'
+
 import * as Koa from "koa"
 import * as Router from "koa-router"
-
 import * as logger from "koa-logger"
 import * as json from "koa-json"
-
 import * as bodyParser from "koa-bodyparser"
 
 //DB
@@ -12,6 +12,8 @@ import db from './db'
 // Routers
 import userRouter from './routers/user'
 import authRouter from './routers/auth'
+
+dotenv.config()
 
 const apiRouter = new Router()
 
@@ -26,6 +28,6 @@ apiRouter.use('/api', userRouter.routes(), userRouter.allowedMethods(), authRout
 
 app.use(apiRouter.routes())
 
-db("mongodb://localhost:27017/table-db")
+db(process.env.MONGODB_URI)
 
-app.listen(3000, () => console.log("Server started."))
+app.listen(process.env.PORT, () => console.log("Server started."))
