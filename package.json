@@ -1,17 +1,13 @@
 {
-  "name": "table-app-api",
+  "name": "koa-starter-project",
   "version": "0.0.1",
-  "description": "Table`s restaurants information tool",
+  "description": "A koa starter project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
     "dev": "nodemon"
   },
-  "keywords": [
-    "Table",
-    "Restaurant"
-  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -24,6 +24,18 @@ app.use(json())
 app.use(logger())
 app.use(bodyParser())
 
+apiRouter.get('/', async (ctx: Koa.Context, next: () => Promise<void>)  => {
+  const health: {} = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now()
+  }
+
+  ctx.body = health
+
+  await next()
+})
+
 apiRouter.use('/api', userRouter.routes(), userRouter.allowedMethods(), authRouter.routes(), authRouter.allowedMethods())
 
 app.use(apiRouter.routes())
