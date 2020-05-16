@@ -1,6 +1,6 @@
-import * as Router from "koa-router"
+import * as Router from 'koa-router'
 
-import { listUsers, getUserById, createUser, updateUser } from "../controllers/user"
+import { listUsers, getUserById, createUser, updateUser } from '../controllers/user'
 import { jwt } from '../middlewares/jwt'
 
 const userRouter: Router = new Router()

@@ -16,7 +16,7 @@ export const login = async (ctx: koa.Context) => {
       return ctx.body({token: token})
     }
     ctx.status = 404
-    ctx.body = {message: "Invalid credentials"}
+    ctx.body = {message: 'Invalid credentials'}
   }).catch((error: Error) => {
     
   })

@@ -1,10 +1,10 @@
 import * as dotenv from 'dotenv'
 
-import * as Koa from "koa"
-import * as Router from "koa-router"
-import * as logger from "koa-logger"
-import * as json from "koa-json"
-import * as bodyParser from "koa-bodyparser"
+import * as Koa from 'koa'
+import * as Router from 'koa-router'
+import * as logger from 'koa-logger'
+import * as json from 'koa-json'
+import * as bodyParser from 'koa-bodyparser'
 
 //DB
 import db from './db'
@@ -30,4 +30,4 @@ app.use(apiRouter.routes())
 
 db(process.env.MONGODB_URI)
 
-app.listen(process.env.PORT, () => console.log("Server started."))
+app.listen(process.env.PORT, () => console.log('Server started.'))

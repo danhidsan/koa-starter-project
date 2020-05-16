@@ -1,0 +1,9 @@
+{
+  "rules": {
+      "no-any": true,
+      "curly": true,
+      "quotemark": [true, "single"],
+      "no-var-requires": true,
+      "no-console": [true, "log", "error"]
+  }
+}

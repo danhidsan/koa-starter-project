@@ -24,9 +24,9 @@ export const getUserById = async (ctx: koa.Context, next: () => Promise<void>) =
   await user.then((userResult: IUser) => {
     ctx.body = userResult
   }).catch((error) => {
-    if (error.name === "CastError") {
+    if (error.name === 'CastError') {
       ctx.status = 404
-      ctx.body = {message: "User not found"}
+      ctx.body = {message: 'User not found'}
     } else {
       ctx.body = error
     }
@@ -67,7 +67,7 @@ export const updateUser = async (ctx: koa.Context, next: () => Promise<void>) =>
   await User.findByIdAndUpdate(userId, updateParams).exec().then((updatedUser: IUser) => {
     ctx.body = { message: 'User updated', user: updatedUser }
   }).catch((error)=> {
-    if (error.name === "CastError") {
+    if (error.name === 'CastError') {
       ctx.body = { message: 'User not found' }
     }else {
       ctx.body = error
