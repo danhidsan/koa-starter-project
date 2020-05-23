@@ -42,4 +42,5 @@ app.use(apiRouter.routes())
 
 db(process.env.MONGODB_URI)
 
-app.listen(process.env.PORT, () => console.log('Server started.'))
+// tslint:disable-next-line:no-console
+app.listen(3000, () => console.log(`Server started. ${3000}`))
