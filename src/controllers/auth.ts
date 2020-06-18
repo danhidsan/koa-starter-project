@@ -1,6 +1,6 @@
 import * as koa from 'koa'
 import * as bcrypt from 'bcrypt'
-import { sign } from 'jsonwebtoken'
+import { jwtSign } from '../utils/jwt'
 
 import User, { IUser } from '../models/user'
 
@@ -11,12 +11,17 @@ export const login = async (ctx: koa.Context) => {
 
   await userQuery.then(async (user: IUser) => {
     const isMatch: boolean = await bcrypt.compare(password, user.password)
-    if (isMatch){
-      const token: string = sign({_id: user.id}, process.env.JWT_SECRET)
-      return ctx.body({token: token})
+    if (!isMatch){
+      ctx.status = 404
+      return ctx.body = {message: 'Invalid credentials'}
     }
-    ctx.status = 404
-    ctx.body = {message: 'Invalid credentials'}
+    await jwtSign({_id: user.id})
+      .then((token) => {
+        ctx.body = {token: token}
+      })
+      .catch((err) => {
+        
+      })
   }).catch((error: Error) => {
     
   })
