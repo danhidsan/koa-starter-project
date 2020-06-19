@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv'
+dotenv.config()
 
 import * as Koa from 'koa'
 import * as Router from 'koa-router'
@@ -13,7 +14,6 @@ import db from './db'
 import userRouter from './routers/user'
 import authRouter from './routers/auth'
 
-dotenv.config()
 
 const app = new Koa()
 
@@ -21,10 +21,6 @@ const app = new Koa()
 app.use(json())
 app.use(logger())
 app.use(bodyParser())
-
-const apiRouter = new Router({ prefix: '/api' })
-apiRouter.use(authRouter.routes(), authRouter.allowedMethods())
-apiRouter.use(userRouter.routes(), userRouter.allowedMethods())
 
 const router = new Router()
 router.get('/', async (ctx: Koa.Context, next: () => Promise<void>)  => {
@@ -39,6 +35,10 @@ router.get('/', async (ctx: Koa.Context, next: () => Promise<void>)  => {
   await next()
 })
 
+const apiRouter = new Router({ prefix: '/api' })
+apiRouter.use(authRouter.routes(), authRouter.allowedMethods())
+apiRouter.use(userRouter.routes(), userRouter.allowedMethods())
+
 app
   .use(apiRouter.routes())
   .use(apiRouter.allowedMethods())
@@ -48,5 +48,6 @@ app
 db(process.env.MONGODB_URI)
 
 // tslint:disable-next-line:no-console
-app.listen(3000, () => console.log(`Server started in port ${3000}`))
+export default app.listen(3000, () => console.log(`Server started in port ${3000}`))
+
 
